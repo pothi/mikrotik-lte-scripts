@@ -9,6 +9,10 @@ Scripts for MikroTik LTE products such as SXT LTE Kit. MikroTik LTE products wit
 - Coming soon (Mikrotik v7 scripts).
 - Coming soon (Mikrotik v7 changes).
 
+## ToDo
+
+- auto-update of LTE firmware
+
 # Contact
 
 You may contact me by my first name (Github username) @riseup.net, @protonmail.com, @duck.com.
