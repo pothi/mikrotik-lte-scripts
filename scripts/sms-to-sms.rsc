@@ -5,9 +5,10 @@
 # Source: https://forum.mikrotik.com/viewtopic.php?f=9&t=61068#p312202
 
 :global adminPh
-:if ([:typeof $adminEmail] = "nothing" || $adminEmail = "") do={ :log error "adminEmail is not defined or nil."; :error "Error: Check the log"; }
+:if ([:typeof $adminPh] = "nothing" || $adminPh = "") do={
+  :log error "adminPh is not defined or nil."; :error "Error: Check the log"; }
+
 :local smsForwardPh $adminPh
-:if ([:typeof $adminPh] = "nothing" || $adminPh = "") do={ :log error "adminPh is not defined or nil."; :error "Error: Check the log"; }
 
 :local smsPhone
 :local smsMessage
