@@ -1,5 +1,11 @@
 # SMS Forward and Email
 
+# Requirements:
+#   policy: read, write, policy, test
+#   active internet
+#   adminEmail - to forward the full details of the received SMS
+#   adminPh - to forward only the received SMS message
+
 # ToDo: Shorten the timestamp.
 
 # Source: https://forum.mikrotik.com/viewtopic.php?f=9&t=61068#p312202
@@ -7,8 +13,14 @@
 # Note: The SMS is removed from the inbox after sent by Email and forwarded
 # even if email and forward fail! So, test it often!
 
-:local adminEmail "admin@example.com"
-:local smsForwardPh 9876543210
+:global adminEmail
+:if ([:typeof $adminEmail] = "nothing" || $adminEmail = "") do={
+  :log error "adminEmail is not defined or nil."; :error "Error: Check the log"; }
+:global adminPh
+:if ([:typeof $adminPh] = "nothing" || $adminPh = "") do={
+  :log error "adminPh is not defined or nil."; :error "Error: Check the log"; }
+
+:local smsForwardPh $adminPh
 
 :local smsPhone
 :local smsMessage
@@ -21,11 +33,11 @@
   :set smsMessage [get $i message]
   :set smsTimeStamp [get $i timestamp]
 
-  :log info "SMS Received From: $smsPhone at $smsTimeStamp Message: $smsMessage"
+  :log info "\nSMS Received From: $smsPhone on $smsTimeStamp Message: $smsMessage"
 
   # Forward the SMS to $smsForwardPh
   :do {
-    /tool sms send lte1 phone-number=$smsForwardPh message="From: $smsPhone Date:$smsTimeStamp Msg: $smsMessage"
+    /tool sms send lte1 phone-number=$smsForwardPh message=$smsMessage
   } on-error={ /tool e-mail send to="$adminEmail" subject="Sending SMS Failed" body="Check the log" }
   :delay 2s
 
