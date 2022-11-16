@@ -80,3 +80,6 @@
 /ip dhcp-server network remove [find gateway=192.168.88.1];
 /ip address remove [find address="192.168.88.1/24"]
 
+# Logging
+:local logTopics {"info"; "error"; "warning"; "critical"; "gsm"; "read"; "write"; "lte,!raw,!packet,!async,!debug"}
+:foreach topic in=$logTopics do={ :system logging add topics=$topic action=disk }
