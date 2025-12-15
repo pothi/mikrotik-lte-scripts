@@ -1,6 +1,6 @@
 # Alert upon new firmware for LTE Modem
 
-# Ref: https://wiki.mikrotik.com/wiki/Manual:Interface/LTE#Modem_firmware_upgrade
+# Ref: https://help.mikrotik.com/docs/spaces/ROS/pages/30146563/LTE+5G#LTE/5G-Modemfirmware-upgradecommand
 
 # requirement/s:
 #   policy: read, write, policy, test
@@ -24,7 +24,7 @@
           LTE Latest Firmware Version: $lteLatestVer"
   :log info "A new firmware is available for LTE modem and an email is sent to '$adminEmail'."
 } else={
-  :log info "No new firmware update for LTE."
+  :log info "No new firmware update for LTE Modem."
   :log info "LTE Installed Firmware Ver: $lteInstalledVer"
   :log info "   LTE Latest Firmware Ver: $lteLatestVer"
 }
