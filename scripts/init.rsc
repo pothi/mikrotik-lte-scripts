@@ -29,7 +29,7 @@
 :log info "Connected to internet. Time synced."
 
 :local commonScripts {"firmware-check-rb"; "firmware-check-ros";}
-:local initScripts ($commonScripts, "firmware-check-lte")
+:local initScripts ($commonScripts, "firmware-check-modem")
 
 /system script
 :foreach scriptName in $initScripts do={
