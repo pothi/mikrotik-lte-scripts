@@ -13,6 +13,8 @@
 # Note: The SMS is removed from the inbox after sent by Email and forwarded
 # even if email and forward fail! So, test it often!
 
+:local delayDuration 5s
+
 :global adminEmail
 :if ([:typeof $adminEmail] = "nothing" || $adminEmail = "") do={
   :log error "adminEmail is not defined or nil."; :error "Error: Check the log"; }
@@ -39,12 +41,13 @@
   :do {
     /tool sms send lte1 phone-number=$smsForwardPh message=$smsMessage
   } on-error={ /tool e-mail send to="$adminEmail" subject="Sending SMS Failed" body="Check the log" }
-  :delay 2s
+  :delay delayDuration
 
   # Send Email to $adminEmail
   /tool e-mail send to="$adminEmail" body="$smsMessage" \
     subject="SMS from $smsPhone at $smsTimeStamp"
-  :delay 3s
+  :delay delayDuration
 
   remove $i
+  :delay delayDuration
 }
